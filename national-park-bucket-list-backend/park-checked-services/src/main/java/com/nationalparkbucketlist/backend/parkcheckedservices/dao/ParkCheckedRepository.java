@@ -9,4 +9,6 @@ public interface ParkCheckedRepository extends JpaRepository<ParkChecked, Long> 
 
 
     List<ParkChecked> findAllByUserId(Long userId);
+
+
 }

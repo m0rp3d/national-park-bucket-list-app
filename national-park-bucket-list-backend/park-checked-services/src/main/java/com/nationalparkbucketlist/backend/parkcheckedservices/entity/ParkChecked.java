@@ -30,8 +30,8 @@ public class ParkChecked {
 
     }
 
-    public ParkChecked(long id, String parkName, String stateName, boolean traveled, long parkId, long userId) {
-        this.id = id;
+    public ParkChecked(String parkName, String stateName, boolean traveled, long parkId, long userId) {
+
         this.parkName = parkName;
         this.stateName = stateName;
         this.traveled = traveled;
@@ -43,9 +43,6 @@ public class ParkChecked {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getParkName() {
         return parkName;

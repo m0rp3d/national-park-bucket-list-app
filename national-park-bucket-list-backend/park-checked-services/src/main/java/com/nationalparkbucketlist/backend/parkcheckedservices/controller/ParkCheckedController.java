@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ParkCheckedController {
@@ -23,7 +24,6 @@ public class ParkCheckedController {
     public List<ParkChecked> getAllParksChecked() {
 
         return parkCheckedRepository.findAll();
-
     }
 
     @GetMapping("/getwith/username/{username}/and/password/{password}")
