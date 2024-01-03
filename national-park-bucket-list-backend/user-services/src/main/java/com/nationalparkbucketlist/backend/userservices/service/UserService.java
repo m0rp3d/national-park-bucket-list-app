@@ -11,6 +11,7 @@ public class UserService {
     @Autowired
     private UserController userController;
 
+    /*
     public User getUser(String userName, String password) {
 
         User user = userController.getByUserNameAndPassword(userName, password);
@@ -31,4 +32,6 @@ public class UserService {
     public Long getUserId(String userName, String password) {
         return userController.getIdByUserNameAndPassword(userName, password);
     }
+
+     */
 }

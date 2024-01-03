@@ -2,16 +2,22 @@ package com.nationalparkbucketlist.backend.userservices.controller;
 
 import com.nationalparkbucketlist.backend.userservices.dao.UserRepository;
 import com.nationalparkbucketlist.backend.userservices.entity.User;
+import com.nationalparkbucketlist.backend.userservices.service.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.nationalparkbucketlist.backend.userservices.entity.User.SEQUENCE_NAME;
 
 @RestController
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SequenceGeneratorService sequenceGeneratorService;
 
     // get a list of users matching a username and password
     @GetMapping("/getuser/{userName}/and/{password}")
@@ -28,6 +34,22 @@ public class UserController {
        return theUser;
     }
 
+    @PostMapping("/user")
+    public User createUser(@RequestBody User user) {
+        // generate sequence
+        user.setId(sequenceGeneratorService.getSequenceNumber(User.SEQUENCE_NAME));
+        //System.out.println(user.getId());
+        return userRepository.save(user);
+    }
+
+    @GetMapping("/getall/users")
+    public List<User> getAllUsers() {
+
+        return userRepository.findAll();
+
+    }
+
+
     @GetMapping("/getuserid/{userName}/and/{password}")
     public Long getIdByUserNameAndPassword(@PathVariable String userName, @PathVariable String password) {
         List<User> matches = userRepository.findByUserNameAndPassword(userName, password);
@@ -41,15 +63,11 @@ public class UserController {
         return theUser.getId();
     }
 
+
     /*
-    @GetMapping("/getall/users")
-    public List<User> getAllUsers() {
 
-        return userRepository.findAll();
 
-    }
 
-     */
 
     @GetMapping("/userexist/{userName}/and/{password}")
     public boolean checkIfUserExistByUserNameAndPassword(@PathVariable String userName, @PathVariable String password) {
@@ -65,10 +83,7 @@ public class UserController {
         return exist;
     }
 
-    @PostMapping("/user")
-    public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
-    }
+
 
     @DeleteMapping("/user/{id}")
     public void deleteUserById(@PathVariable Long id) {
@@ -77,4 +92,7 @@ public class UserController {
 
         userRepository.delete(user);
     }
+
+
+     */
 }

@@ -36,11 +36,11 @@ public class ParkController {
 
      */
 
-    /*
+
     @GetMapping("getall/parks")
     public List<Park> getAllParks() {
         return parkRepository.findAll();
     }
 
-     */
+
 }

@@ -26,11 +26,11 @@ public class ParkCheckedController {
         return parkCheckedRepository.findAll();
     }
 
-    @GetMapping("/getwith/username/{username}/and/password/{password}")
+    @GetMapping("/getwith/{username}/and/{password}")
     public List<ParkChecked> getParksCheckedMatchingUserId(@PathVariable String username, @PathVariable String password) {
 
         Long tempId = proxy.getIdByUserNameAndPassword(username, password);
-
+        System.out.println("tempId is " + tempId);
         List<ParkChecked> myParkCheckedList = parkCheckedRepository.findAllByUserId(tempId);
         return myParkCheckedList;
     }

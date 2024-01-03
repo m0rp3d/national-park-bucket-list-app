@@ -23,6 +23,8 @@ class UserServicesApplicationTests {
 	@Autowired
 	private UserService userService;
 
+	// was for mysql database
+	/*
 	@Mock
 	private UserService mockUserService = new UserService();
 
@@ -116,7 +118,7 @@ class UserServicesApplicationTests {
 
 	// will create user and enter into database
 	// will verify that mock service was called
-	/*
+
 	@Test
 	public void verifyUserCreatedMethod() {
 		User user = new User(6, "fourth", "fourth", "fourth@gmail.com");

@@ -3,28 +3,44 @@ package com.nationalparkbucketlist.backend.userservices.entity;
 
 
 import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
-@Entity
-@Table(name="user")
+//@Entity
+// for mongodb we use @Document instead of @Entity
+//@Table(name="user")
+@Document(collection = "user")
 public class User {
 
+    @Transient
+    public static final  String SEQUENCE_NAME = "user_sequence";
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Column(name="id")
     private long id;
 
-    @Column(name="user_name")
+    @Indexed(unique = true)
+    //@Column(name="user_name")
     private String userName;
 
-    @Column(name="password")
+    //@Column(name="password")
     private String password;
 
-    @Column(name="email")
+    @Indexed(unique = true)
+   // @Column(name="email")
     private String email;
 
     public User() {
 
+    }
+
+    public User(long id, String userName, String password, String email) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
     }
 
     public User(String userName, String password, String email) {
@@ -32,6 +48,7 @@ public class User {
         this.userName = userName;
         this.password = password;
         this.email = email;
+
     }
 
     public long getId() {
@@ -61,5 +78,10 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
