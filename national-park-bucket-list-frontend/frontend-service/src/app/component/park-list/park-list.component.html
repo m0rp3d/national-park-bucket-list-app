@@ -1,0 +1,30 @@
+<h2>Park List</h2>
+<table>
+    <thead>
+        <tr>
+            <th>State Name</th>       
+            <th>Park Name</th>
+            <!--   
+            <th>Image</th>     
+            <th>Directions</th>      
+            <th>About</th>       
+            <th>Costs</th>
+            <th>Activities</th>
+            --> 
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let park of parks">
+                <td><a (click)="showPark(park.id)">{{park.stateName}}</a></td>
+                <td><a (click)="showPark(park.id)">{{park.parkName}}</a></td>
+                <!--
+                
+                <td>{{park.image}}</td>
+                <td>{{park.directions}}</td>
+                <td>{{park.about}}</td>
+                <td>{{park.costs}}</td>
+                <td>{{park.activities}}</td>
+                --> 
+        </tr>
+    </tbody>
+</table>
