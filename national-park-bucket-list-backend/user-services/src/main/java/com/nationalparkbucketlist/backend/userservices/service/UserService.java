@@ -1,15 +1,25 @@
 package com.nationalparkbucketlist.backend.userservices.service;
 
 import com.nationalparkbucketlist.backend.userservices.controller.UserController;
+import com.nationalparkbucketlist.backend.userservices.dao.UserRepository;
 import com.nationalparkbucketlist.backend.userservices.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
 
     @Autowired
-    private UserController userController;
+    private UserRepository userRepository;
+
+    public User getUserByEmail(String email) {
+
+        User user = userRepository.findUserByEmail(email).get();
+
+        return user;
+    }
 
     /*
     public User getUser(String userName, String password) {

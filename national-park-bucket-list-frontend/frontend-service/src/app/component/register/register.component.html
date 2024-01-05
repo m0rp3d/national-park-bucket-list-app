@@ -1,0 +1,62 @@
+<div>
+    <h1>User Registration</h1>
+    <form [formGroup]="registrationForm" #Registerform="ngForm">
+    
+        <div>
+            <div >
+              <label for="userName">User Name:</label>
+              <input type="text" formControlName="userName" placeholder="Enter userName" name="userName" [(ngModel)]="user.userName">
+            </div>
+            <div *ngIf="registrationForm.get('userName')?.invalid && registrationForm.get('userName')?.touched">
+              <small *ngIf="registrationForm.get('userName')?.hasError('required')">Username is required</small>
+              <small *ngIf="registrationForm.get('userName')?.hasError('maxlength')">Username cannot be more than 30 characters long.</small>
+              <small *ngIf="registrationForm.get('userName')?.hasError('minlength')">Username cannot be less than 6 characters long.</small>
+              <small *ngIf="registrationForm.get('userName')?.hasError('invalidName')">Username can only contain digits, letters and underscore(s).</small>
+            </div>
+        </div>
+      
+        <div>
+            <div>
+              <label for="pwd">Password:</label>
+              <input type="password" formControlName="password" placeholder="Enter password" name="password" [(ngModel)]="user.password">
+            </div>
+            <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched">
+              <small *ngIf="registrationForm.get('password')?.hasError('required')">Password is required.</small>
+              <small *ngIf="registrationForm.get('password')?.hasError('maxlength')">Password cannot be more than 30 characters long.</small>
+              <small *ngIf="registrationForm.get('password')?.hasError('minlength')">Password cannot be less than 8 characters long.</small>
+            </div>
+          </div>
+       <div>
+    
+        <div>
+            <div>
+              <label for="pwd">Confirm Password:</label>
+              <input type="password" formControlName="cpassword" placeholder="Enter confirm password" name="cpassword" (ngModel)="user.password">
+            </div>
+            <div *ngIf="registrationForm.get('cpassword')?.touched">
+              <small *ngIf="registrationForm.get('cpassword')?.hasError('required')">Password is required.</small>
+              <small *ngIf="registrationForm.get('cpassword')?.hasError('maxlength')">Password cannot be more than 30 characters long.</small>
+              <small *ngIf="registrationForm.get('cpassword')?.hasError('minlength')">Password cannot be less than 8 characters long.</small>
+              <small *ngIf="registrationForm?.errors?.['misMatch']">Passwords do not match.</small>
+            </div>
+        </div>
+
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" formControlName="email" placeholder="Enter email" name="email" [(ngModel)]="user.email">
+        </div>
+        <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched">
+          <small *ngIf="registrationForm.get('email')?.hasError('required')">Email is required</small>
+          <small *ngIf="registrationForm.get('email')?.hasError('maxlength')">Email cannot be more than 30 characters long.</small>
+          <small *ngIf="registrationForm.get('email')?.hasError('minlength')">Email cannot be less than 12 characters long.</small>
+          <small *ngIf="registrationForm.get('email')?.hasError('email')">Use proper email format. Ex: ---@---.com. </small>
+        </div>
+      </div>
+  
+      <button [disabled]="registrationForm.invalid" id="registerButton" #submitBtn type="submit" (click)="registerUser(submitBtn)">Register</button>
+      <p>{{msg}}</p>
+    </form>
+    
+    <a routerLink="/login">Already have an account? Click here to login.</a>
+  </div>
+

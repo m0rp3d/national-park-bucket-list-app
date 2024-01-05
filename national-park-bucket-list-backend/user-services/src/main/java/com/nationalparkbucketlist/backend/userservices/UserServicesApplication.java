@@ -13,14 +13,16 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 @EnableEurekaServer
 public class UserServicesApplication {
-	@Autowired
-	private UserController userController;
+	//@Autowired
+	//private UserController userController;
 
 	public static void main(String[] args) {
 
 		SpringApplication.run(UserServicesApplication.class, args);
 	}
 
+	// used for testing
+	/*
 	@Bean
 	CommandLineRunner runner(UserRepository repository) {
 
@@ -35,10 +37,14 @@ public class UserServicesApplication {
 								System.out.println(user + " user already exist");
 							}, () -> {
 								System.out.println("Inserting user " + user);
+
+								// need to throw exception
 								userController.createUser(user);
 							});
 
 		};
 	}
+	*/
+
 
 }

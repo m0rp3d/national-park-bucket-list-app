@@ -3,6 +3,7 @@ package com.nationalparkbucketlist.backend.userservices.controller;
 import com.nationalparkbucketlist.backend.userservices.dao.UserRepository;
 import com.nationalparkbucketlist.backend.userservices.entity.User;
 import com.nationalparkbucketlist.backend.userservices.service.SequenceGeneratorService;
+import com.nationalparkbucketlist.backend.userservices.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +18,12 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
 
-    // get a list of users matching a username and password
+    // get a user
     @GetMapping("/getuser/{userName}/and/{password}")
     public User getByUserNameAndPassword(@PathVariable String userName, @PathVariable String password) {
 
@@ -35,12 +39,23 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public User createUser(@RequestBody User user) {
-        // generate sequence
-        user.setId(sequenceGeneratorService.getSequenceNumber(User.SEQUENCE_NAME));
-        //System.out.println(user.getId());
+    @CrossOrigin(origins = "http://localhost:4200")
+    public User createUser(@RequestBody User user){
+        String username = user.getUserName();
+        String password = user.getPassword();
+
+        List<User> matches = userRepository.findByUserNameAndPassword(username, password);
+
+        if(matches.isEmpty() == false) {
+            throw new RuntimeException("User matches username and password");
+        } else {
+            // return user at first index, makes sure only one user with username and password returned
+            user.setId(sequenceGeneratorService.getSequenceNumber(User.SEQUENCE_NAME));
+        }
+
         return userRepository.save(user);
     }
+
 
     @GetMapping("/getall/users")
     public List<User> getAllUsers() {
@@ -63,12 +78,7 @@ public class UserController {
         return theUser.getId();
     }
 
-
     /*
-
-
-
-
     @GetMapping("/userexist/{userName}/and/{password}")
     public boolean checkIfUserExistByUserNameAndPassword(@PathVariable String userName, @PathVariable String password) {
         boolean exist = false;
@@ -82,7 +92,6 @@ public class UserController {
 
         return exist;
     }
-
 
 
     @DeleteMapping("/user/{id}")
