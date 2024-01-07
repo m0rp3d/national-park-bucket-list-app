@@ -1,2 +1,49 @@
-<p>login works!</p>
-<a routerLink="/register">Need to register an accout? Click here</a>
+<div class="m-5">
+    <h1>Sign In</h1>
+  
+    
+    <form [formGroup]="signInForm" #SignInForm="ngForm">
+      <!-- (ngSubmit)="onSubmit() -->
+  
+    <div>
+        <label>Email:</label>
+        <div>
+          <input [class.redBorder]="signInForm.get('email')?.invalid &&
+                 signInForm.get('email')?.touched" formControlName="email" [(ngModel)]="user.email" type="email" placeholder="Enter email">
+        </div>
+        <div *ngIf="signInForm.get('email')?.invalid && signInForm.get('email')?.touched">
+            <small *ngIf="signInForm.get('email')?.hasError('required')" >Email is required. </small>
+            <small *ngIf="signInForm.get('email')?.hasError('maxlength')" >Email cannot be more than 30 characters long. </small>
+            <small *ngIf="signInForm.get('email')?.hasError('minlength')" >Email cannot be less than 12 characters long. </small>
+            <small *ngIf="signInForm.get('email')?.hasError('email')" >Use proper email format. Ex: ---@---.com. </small>
+        </div>
+  
+    </div>
+      
+  
+    <div>
+        <label>Password:</label>
+        <div>
+          <input formControlName="password" [(ngModel)]="user.password" type="password" placeholder="Enter password">
+        </div>
+        <div *ngIf="signInForm.get('password')?.invalid && signInForm.get('password')?.touched">
+          <small *ngIf="signInForm.get('password')?.hasError('required')" >Password is required.</small>
+          <small *ngIf="signInForm.get('password')?.hasError('maxlength')" >Password cannot be more than 30 characters long. </small>
+          <small *ngIf="signInForm.get('password')?.hasError('minlength')" >Password cannot be less than 8 characters long. </small>
+        </div>
+    </div>
+  
+
+      <!-- [disabled] means the button is disabled if the form is not valid-->
+      <button [disabled]="SignInForm.form.invalid" (click)="onSubmit()" type="submit">Login</button>
+      <small>{{msg}}</small>
+  
+      <!--
+    {{signInForm.value | json}}
+    -->
+  
+    </form>
+  
+    <a routerLink="/register">Need to register an accout? Click here</a>
+  </div>
+

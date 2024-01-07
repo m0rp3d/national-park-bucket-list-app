@@ -6,6 +6,7 @@ import com.nationalparkbucketlist.backend.userservices.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,9 +15,29 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User getUserByEmail(String email) {
+    public User postUser(User user) {
 
-        User user = userRepository.findUserByEmail(email).get();
+        return userRepository.save(user);
+    }
+
+    public boolean userExistWithUserNameAndEmail(String username, String email) {
+
+        List<User> matches = userRepository.findByUserNameOrEmail(username, email);
+
+        if(matches.isEmpty() == false) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public User getUserByEmailAndPassword(String email, String password) {
+        User user = new User();
+        try {
+            user = userRepository.findByEmailAndPassword(email, password).get(0);
+        } catch(Exception e) {
+            System.out.println("No user exist with this email and password");
+        }
 
         return user;
     }

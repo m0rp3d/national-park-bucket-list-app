@@ -3,6 +3,7 @@ package com.nationalparkbucketlist.backend.userservices;
 import com.nationalparkbucketlist.backend.userservices.controller.UserController;
 import com.nationalparkbucketlist.backend.userservices.entity.User;
 import com.nationalparkbucketlist.backend.userservices.service.UserService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -24,7 +25,7 @@ class UserServicesApplicationTests {
 	private UserService userService;
 
 	// was for mysql database
-	/*
+
 	@Mock
 	private UserService mockUserService = new UserService();
 
@@ -33,6 +34,66 @@ class UserServicesApplicationTests {
 
 	// cover is only provided with actual calls of those methods, when doesn't count, nor do mocks
 
+	@Test
+	public void testGetByEmailAndPasswordController() {
+
+		User user = new User(1, "origin", "origin", "origin@gmail.com");
+
+		// both assertEquals arguments should return long of 1
+		// meaning the controller method will return the id of 'user' that exist with the email and password we passed
+		assertEquals(user.getId(), userController.getByEmailAndPassword("origin@gmail.com", "origin").getId());
+
+	}
+
+	@Test
+	public void testGetByEmailAndPasswordControllerException() {
+		String email = "billymays@gmail.com";
+		String password = "billymays123";
+
+		// will throw runtimeexception error if user with the listed email and password doesn't exist
+		// test will return true
+		assertThatThrownBy(() -> userController.getByEmailAndPassword(email, password))
+				.isInstanceOf(RuntimeException.class)
+				.hasMessageContaining("No user that matches email and password");
+	}
+
+	@Test
+	@Disabled
+	public void testGetByEmailAndPasswordService() {
+
+		User user = new User(1, "origin", "origin", "origin@gmail.com");
+
+		// both assertEquals arguments should return long of 1
+		// meaning the service method will return the id of 'user' that exist with the email and password we passed
+		assertEquals(user.getId(), userService.getUserByEmailAndPassword("origin@gmail.com", "origin").getId());
+
+	}
+
+	// disabled for now because will create new user
+	@Test
+	@Disabled
+	public void testCreateUser() {
+
+		User user = new User("temp9", "temp9", "temp9@gmail.com");
+		userController.createUser(user);
+
+
+		// both assertEquals arguments should return long of 1
+		// meaning the service method will return the id of 'user' that exist with the email and password we passed
+		assertEquals(user.getId(), userService.getUserByEmailAndPassword("temp9@gmail.com", "temp9").getId());
+	}
+
+	@Test
+	//@Disabled
+	public void testCreateUserException() {
+		User user = new User("temp1234", "temp1234", "temp1234@gmail.com");
+
+		assertThatThrownBy(() -> userController.createUser(user))
+				.isInstanceOf(RuntimeException.class)
+				.hasMessageContaining("User matches username and password");
+	}
+
+	/*
 	@Test
 	public void testGetIdByUserNameAndPassword() {
 		Long tempId = userService.getUserId("origin", "origin");

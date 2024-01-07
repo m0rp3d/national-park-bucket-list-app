@@ -23,47 +23,44 @@ public class UserController {
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
 
-    // get a user
-    @GetMapping("/getuser/{userName}/and/{password}")
-    public User getByUserNameAndPassword(@PathVariable String userName, @PathVariable String password) {
 
-       List<User> matches = userRepository.findByUserNameAndPassword(userName, password);
-       User theUser = new User();
-       if(matches.isEmpty() == true) {
-           throw new RuntimeException("No user that matches username and password");
-       } else {
-           // return user at first index, makes sure only one user with username and password returned
-           theUser = matches.get(0);
+
+    // get a user
+    @GetMapping("/getuser/{email}/and/{password}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public User getByEmailAndPassword(@PathVariable String email, @PathVariable String password) {
+       User theUser = userService.getUserByEmailAndPassword(email, password);
+
+       if(theUser.getUserName() == null) {
+           throw new RuntimeException("No user that matches email and password");
        }
-       return theUser;
+
+        return theUser;
     }
 
     @PostMapping("/user")
     @CrossOrigin(origins = "http://localhost:4200")
     public User createUser(@RequestBody User user){
         String username = user.getUserName();
-        String password = user.getPassword();
+        //String password = user.getPassword();
+        String email = user.getEmail();
 
-        List<User> matches = userRepository.findByUserNameAndPassword(username, password);
 
-        if(matches.isEmpty() == false) {
+        //List<User> matches = userRepository.findByUserNameOrEmail(username, email);
+
+        boolean exist = userService.userExistWithUserNameAndEmail(username, email);
+        if(exist == true) {
             throw new RuntimeException("User matches username and password");
         } else {
             // return user at first index, makes sure only one user with username and password returned
             user.setId(sequenceGeneratorService.getSequenceNumber(User.SEQUENCE_NAME));
         }
 
-        return userRepository.save(user);
+        return userService.postUser(user);
     }
 
 
-    @GetMapping("/getall/users")
-    public List<User> getAllUsers() {
-
-        return userRepository.findAll();
-
-    }
-
+    /*
 
     @GetMapping("/getuserid/{userName}/and/{password}")
     public Long getIdByUserNameAndPassword(@PathVariable String userName, @PathVariable String password) {
@@ -78,20 +75,28 @@ public class UserController {
         return theUser.getId();
     }
 
-    /*
-    @GetMapping("/userexist/{userName}/and/{password}")
-    public boolean checkIfUserExistByUserNameAndPassword(@PathVariable String userName, @PathVariable String password) {
+    @GetMapping("/getall/users")
+    public List<User> getAllUsers() {
+
+        return userRepository.findAll();
+
+    }
+
+    // for testing
+    @GetMapping("/userexist/{userName}/and/{email}")
+    public boolean checkIfUserExistByUserNameAndEmail(@PathVariable String userName, @PathVariable String email) {
         boolean exist = false;
-        List<User> matches = userRepository.findByUserNameAndPassword(userName, password);
+        List<User> matches = userRepository.findByUserNameOrEmail(userName, email);
         if(matches.isEmpty() == true) {
             exist = false;
         } else {
-            // return true if user with matching userName and password exist
+            // return true if user with matching userName and email exist
             exist = true;
         }
 
         return exist;
     }
+
 
 
     @DeleteMapping("/user/{id}")
