@@ -14,8 +14,8 @@ import static com.nationalparkbucketlist.backend.userservices.entity.User.SEQUEN
 @RestController
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    //@Autowired
+    //private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -59,12 +59,11 @@ public class UserController {
         return userService.postUser(user);
     }
 
-
     /*
-
     @GetMapping("/getuserid/{userName}/and/{password}")
     public Long getIdByUserNameAndPassword(@PathVariable String userName, @PathVariable String password) {
-        List<User> matches = userRepository.findByUserNameAndPassword(userName, password);
+        List<User> matches = userService.getUserWithUsernameAndPassword(userName, password);
+
         User theUser = new User();
         if(matches.isEmpty() == true) {
             throw new RuntimeException("No user that matches username and password");
@@ -97,8 +96,6 @@ public class UserController {
         return exist;
     }
 
-
-
     @DeleteMapping("/user/{id}")
     public void deleteUserById(@PathVariable Long id) {
 
@@ -106,7 +103,5 @@ public class UserController {
 
         userRepository.delete(user);
     }
-
-
      */
 }

@@ -13,8 +13,8 @@ export class UserService {
   private userUrl = "http://localhost:8000";
 
   // get the user using username and password
-  getUser(email: string, password: string): Observable<User> {
-    return this.httpClient.get<User>(`${this.userUrl}/getuser/${email}/and/${password}`);
+  getUser(email: string, password: string): Observable<any> {
+    return this.httpClient.get<any>(`${this.userUrl}/getuser/${email}/and/${password}`);
   }
 
   registerUser(user: User): Observable<any> {

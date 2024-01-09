@@ -10,6 +10,7 @@ import { LogoutComponent } from './component/logout/logout.component';
 import { RegisterComponent } from './component/register/register.component';
 import { SuccessComponent } from './component/success/success.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ParkCheckedListComponent } from './component/park-checked-list/park-checked-list.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     LogoutComponent,
     RegisterComponent,
-    SuccessComponent
+    SuccessComponent,
+    ParkCheckedListComponent
   ],
   imports: [
     BrowserModule,

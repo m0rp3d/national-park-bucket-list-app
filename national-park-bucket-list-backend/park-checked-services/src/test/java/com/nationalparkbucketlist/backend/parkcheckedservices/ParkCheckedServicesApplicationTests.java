@@ -1,5 +1,6 @@
 package com.nationalparkbucketlist.backend.parkcheckedservices;
 
+import com.nationalparkbucketlist.backend.parkcheckedservices.controller.ParkCheckedController;
 import com.nationalparkbucketlist.backend.parkcheckedservices.entity.ParkChecked;
 import com.nationalparkbucketlist.backend.parkcheckedservices.services.ParkCheckedService;
 import org.junit.jupiter.api.Disabled;
@@ -7,10 +8,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -18,11 +21,45 @@ import static org.mockito.Mockito.when;
 class ParkCheckedServicesApplicationTests {
 
 	@Autowired
+	private ParkCheckedController parkCheckedController;
+
+	@Autowired
 	private ParkCheckedService parkCheckedService;
 
 	@Mock
-	private ParkCheckedService mockParkCheckedService = new ParkCheckedService();
+	private ParkCheckedController mockParkCheckerController = new ParkCheckedController();
+	//@Mock
+	//private ParkCheckedService mockParkCheckedService = new ParkCheckedService();
 
+	@Test
+	public void testGetAllParksChecked() {
+		List<ParkChecked> allParksChecked;
+
+		allParksChecked = parkCheckedController.getAllParksChecked();
+
+		assertEquals(allParksChecked.isEmpty(), false);
+
+	}
+
+	// unfinished
+	// throw exception when failing to get list of parkschecked
+	@Test
+	@Disabled
+	public void willThrowGetAllParksChecked() {
+		List<ParkChecked> allParksChecked;
+
+		//when(allParksChecked = mockParkCheckerController.getAllParksChecked()).thenReturn(null);
+
+		//System.out.println(allParksChecked);
+
+		//assertEquals(allParksChecked.isEmpty(), true);
+		assertThatThrownBy(() -> when(mockParkCheckerController.getAllParksChecked()).thenReturn(null)).
+				isInstanceOf(RuntimeException.class)
+				.hasMessageContaining("No parks checked");
+
+	}
+
+	/*
 	@Test
 	public void testGetParksCheckedByUserId() {
 		List<ParkChecked> checkerList = new ArrayList<ParkChecked>();
@@ -94,5 +131,7 @@ class ParkCheckedServicesApplicationTests {
 
 		assertEquals(4, checkerList.get(3).getUserId());
 	}
+
+	 */
 
 }

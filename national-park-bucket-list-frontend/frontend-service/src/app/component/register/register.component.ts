@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/common/user';
+import { LoginLogoutService } from 'src/app/services/login-logout.service';
+import { ParkCheckedService } from 'src/app/services/park-checked.service';
 import { UserService } from 'src/app/services/user.service';
 import { nameValidator } from 'src/app/shared/check-special-charactar-validator';
 import { passwordValidator } from 'src/app/shared/password-validator';
@@ -16,8 +18,11 @@ export class RegisterComponent implements OnInit {
 
   user = new User();
   msg = ''; 
+  // store id of user that is created
+  tempId = 0;
 
-  constructor(private fb: FormBuilder, private route: Router, private userService: UserService ) { }
+  constructor(private fb: FormBuilder, private route: Router, private userService: UserService, private parkCheckedService: ParkCheckedService,
+    private loginService: LoginLogoutService ) { }
 
   // validation form for the registration form with their validators
   registrationForm = this.fb.group({
@@ -40,23 +45,39 @@ export class RegisterComponent implements OnInit {
 
     // checks if username exists
     //console.log("this username is " + this.account);
-    this.userService.registerUser(this.user).subscribe(
-      data => {
-        console.log("response received");
 
-        // update the message that shows up in the SuccessComponent
-        //this.passMessage.updateMessage('Account registered successfully');
-
-        // navigate to the 'SuccessComponent'
-        this.route.navigate(['/success']);
-        
-      }, // update this.msg if an error occurs
-      error => {
-        console.log("exception occured");
+    this.userService.registerUser(this.user).subscribe({
+      next: (data) => {
+        this.tempId = data.id;
+        // login the user after creating the user account
+        this.loginService.updateCurrentUser(data); 
+      },
+      error: (error) => {
+        console.log("exeption occurred");
         this.msg = "Account already exists";
+      },
+      complete: () => {
+        //console.log("response received");
+        //console.log("tempId is " + this.tempId);
+        this.parkCheckedService.postParksChecked(this.tempId).subscribe({
+          next: (data) => {
+            
+          },
+          error: (error) => {
+            console.log("couldn't post parks checked with user");
+            //this.msg = "Account already exists";
+          },
+          complete: () => {
+            
+            this.route.navigate(['/success']);
+          }
+    
+        });
+        
       }
 
-    )
+    });
+
     // set the disabled of the submit button false
     // so that if register account creation fails
     // user can submit the form again

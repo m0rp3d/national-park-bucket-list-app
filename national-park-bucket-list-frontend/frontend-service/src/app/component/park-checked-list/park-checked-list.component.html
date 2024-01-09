@@ -1,0 +1,50 @@
+<h2>Park Checked List</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Park Name</th>       
+            <th>State Name</th>
+            <th>Traveled</th>
+            <th>Upgrade</th>
+            <!--
+
+            
+            <th>Park Id</th>
+            <th>User Id</th>
+            -->
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let park of parksChecked">
+                <td><a>{{park.id}}</a></td>
+                <td><a (click)="showPark(park.parkId)">{{park.parkName}}</a></td>
+                <td><a (click)="showPark(park.parkId)">{{park.stateName}}</a></td>
+                <td>
+                    <label>
+                        <input type="checkbox" name="Traveled" [(ngModel)]="park.traveled" (change)="handle(park, park.traveled)"/>
+                        {{park.traveled}}
+                    </label>
+                    </td>
+                <!-- 
+                <td>
+                <label>
+                    <input type="checkbox" name="Traveled" [(ngModel)]="park.traveled"/>
+                    {{park.traveled}}
+                </label>
+                </td>
+                <td>
+                    <button (click)="onSubmit(park, park.traveled)" type="submit">Upgrade</button>
+                </td>
+                -->
+                <!--
+                <td><a>{{park.traveled}}</a></td>
+
+                
+                <td><a>{{park.parkId}}</a></td>
+                <td><a>{{park.userId}}</a></td> 
+                -->
+        </tr>
+        
+    </tbody>
+</table>

@@ -60,13 +60,15 @@ public class ParkChecked {
         this.stateName = stateName;
     }
 
-    public boolean isTraveled() {
+    public boolean getTraveled() {
         return traveled;
     }
 
     public void setTraveled(boolean traveled) {
         this.traveled = traveled;
     }
+
+
 
     public long getParkId() {
         return parkId;

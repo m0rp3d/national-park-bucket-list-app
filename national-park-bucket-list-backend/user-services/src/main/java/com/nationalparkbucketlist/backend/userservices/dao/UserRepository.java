@@ -13,6 +13,8 @@ public interface UserRepository extends MongoRepository<User, Long> {
 
     List<User> findByUserNameOrEmail(String userName, String email);
 
+    //List<User> findByUserNameAndPassword(String userName, String password);
+
     // used to see if user already exist with email
     //Optional<User> findUserByEmail(String email);
 }

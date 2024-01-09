@@ -5,6 +5,7 @@ import { NationalParkComponent } from './component/national-park/national-park.c
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
 import { SuccessComponent } from './component/success/success.component';
+import { ParkCheckedListComponent } from './component/park-checked-list/park-checked-list.component';
 
 const routes: Routes = [
   {path: 'parks', component: ParkListComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'success', component: SuccessComponent},
   {path: 'national-park/:id', component: NationalParkComponent},
+  {path: 'park-checked', component: ParkCheckedListComponent},
   {path: '', redirectTo: 'parks', pathMatch: 'full'}
 ];
 

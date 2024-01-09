@@ -33,7 +33,29 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit() {
+    console.log("email is " + this.user.email + " and password is " + this.user.password);
+
+    // http get request function to get account using email and password
+    // used to check if user filled signInForm with valid email and password
+    this.userService.getUser(this.user.email, this.user.password).subscribe({
+      next: (data) => {
+        this.updatedUser = data;
+
+        this.loginService.updateCurrentUser(this.updatedUser);
+      },
+      error: (error) => {
+        console.log("exeption occurred");
+      },
+      complete: () => {
+        this.route.navigate(['/success']);
+      }
+
+    });
+  }
+
   // click function to login the user
+  /*
   onSubmit() {
     //console.log("email is " + this.account.email + " and password is " + this.account.password);
 
@@ -42,9 +64,10 @@ export class LoginComponent implements OnInit {
     this.userService.getUser(this.user.email, this.user.password).subscribe(
       data => {
         //console.log("response recieved");
-
+        
         // subscribe account data to this.updatedAccount
         this.updatedUser = data;
+        console.log(data.id);
 
         // use the loginService to show that user is logged in
         this.loginService.updateCurrentUser(this.updatedUser);
@@ -61,4 +84,6 @@ export class LoginComponent implements OnInit {
       }
     )
   }
+
+  */
 }

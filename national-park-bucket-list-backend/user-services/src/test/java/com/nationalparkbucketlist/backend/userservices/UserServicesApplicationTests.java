@@ -58,7 +58,7 @@ class UserServicesApplicationTests {
 	}
 
 	@Test
-	@Disabled
+	//@Disabled
 	public void testGetByEmailAndPasswordService() {
 
 		User user = new User(1, "origin", "origin", "origin@gmail.com");

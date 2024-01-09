@@ -1,4 +1,13 @@
 <h1>Home</h1>
-<a routerLink="/login">Login</a>
+{{mainUser.id}}
+<div class="border w-50 float-start m-3" *ngIf="mainUser.id > 0 else elseBlock ">
+    <a (click)="logout(resetUser)"> logout </a>
+    <a routerLink="/park-checked">My Park Bucket List</a>
+  </div>
+
+  <ng-template #elseBlock>
+    <a routerLink="/login">Login</a>
+  </ng-template>
+
 <a routerLink="/parks">National Park List</a>
 <router-outlet></router-outlet>

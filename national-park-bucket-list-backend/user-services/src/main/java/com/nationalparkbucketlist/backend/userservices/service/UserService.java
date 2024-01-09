@@ -43,26 +43,12 @@ public class UserService {
     }
 
     /*
-    public User getUser(String userName, String password) {
+    public List<User> getUserWithUsernameAndPassword(String username, String password) {
 
-        User user = userController.getByUserNameAndPassword(userName, password);
-
-        return user;
-    }
-
-    public boolean checkUserExist(String userName, String password) {
-
-        boolean exist = userController.checkIfUserExistByUserNameAndPassword(userName, password);
-        return exist;
-    }
-
-    public User createUser(User user) {
-        return userController.createUser(user);
-    }
-
-    public Long getUserId(String userName, String password) {
-        return userController.getIdByUserNameAndPassword(userName, password);
+        return userRepository.findByUserNameAndPassword(username, password);
     }
 
      */
+
+
 }
