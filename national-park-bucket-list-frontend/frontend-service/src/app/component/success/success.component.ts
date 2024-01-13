@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-success',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuccessComponent implements OnInit {
 
-  constructor() { }
+  successMessage = '';
+
+  constructor(private message: MessageService) { }
 
   ngOnInit(): void {
+    this.message.share.subscribe(data => this.successMessage = data);
   }
 
 }

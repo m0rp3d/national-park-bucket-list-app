@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/common/user';
 import { LoginLogoutService } from 'src/app/services/login-logout.service';
+import { MessageService } from 'src/app/services/message.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
   returnable: boolean = false;
 
   constructor(private formB: FormBuilder, private route: Router, private loginService: LoginLogoutService,
-    private userService: UserService) { }
+    private userService: UserService, private message: MessageService) { }
 
   // validation form for the sign in form with validators
   signInForm = this.formB.group({
@@ -43,6 +44,8 @@ export class LoginComponent implements OnInit {
         this.updatedUser = data;
 
         this.loginService.updateCurrentUser(this.updatedUser);
+
+        this.message.updateMessage('You are now logged in.');
       },
       error: (error) => {
         console.log("exeption occurred");

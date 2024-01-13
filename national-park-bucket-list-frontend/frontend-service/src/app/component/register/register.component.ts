@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/common/user';
 import { LoginLogoutService } from 'src/app/services/login-logout.service';
+import { MessageService } from 'src/app/services/message.service';
 import { ParkCheckedService } from 'src/app/services/park-checked.service';
 import { UserService } from 'src/app/services/user.service';
 import { nameValidator } from 'src/app/shared/check-special-charactar-validator';
@@ -22,7 +23,7 @@ export class RegisterComponent implements OnInit {
   tempId = 0;
 
   constructor(private fb: FormBuilder, private route: Router, private userService: UserService, private parkCheckedService: ParkCheckedService,
-    private loginService: LoginLogoutService ) { }
+    private loginService: LoginLogoutService, private message: MessageService ) { }
 
   // validation form for the registration form with their validators
   registrationForm = this.fb.group({
@@ -51,6 +52,8 @@ export class RegisterComponent implements OnInit {
         this.tempId = data.id;
         // login the user after creating the user account
         this.loginService.updateCurrentUser(data); 
+
+        this.message.updateMessage('You are now registered.');
       },
       error: (error) => {
         console.log("exeption occurred");

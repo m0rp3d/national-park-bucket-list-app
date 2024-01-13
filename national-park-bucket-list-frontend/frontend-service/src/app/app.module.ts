@@ -11,6 +11,7 @@ import { RegisterComponent } from './component/register/register.component';
 import { SuccessComponent } from './component/success/success.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ParkCheckedListComponent } from './component/park-checked-list/park-checked-list.component';
+import { NotFoundComponent } from './component/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ParkCheckedListComponent } from './component/park-checked-list/park-che
     LogoutComponent,
     RegisterComponent,
     SuccessComponent,
-    ParkCheckedListComponent
+    ParkCheckedListComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

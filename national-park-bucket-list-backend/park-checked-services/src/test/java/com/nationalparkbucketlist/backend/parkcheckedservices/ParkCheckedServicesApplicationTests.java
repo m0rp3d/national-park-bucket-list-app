@@ -134,4 +134,65 @@ class ParkCheckedServicesApplicationTests {
 
 	 */
 
+	@Test
+	public void testGetParkCheckedListUsingUserId() {
+		Long tempId = Long.valueOf(1);
+
+		List<Long> ids = new ArrayList<>();
+		// will contains longs from 1-60
+		for(int i = 1; i <= 60; i++) {
+			ids.add(Long.valueOf(i));
+		}
+
+		List<ParkChecked> parksChecked = parkCheckedController.getParkCheckedListUsingUserId(tempId);
+
+		List<Long> parksCheckedIds = new ArrayList<>();
+
+		for(ParkChecked parkChecked: parksChecked) {
+
+			parksCheckedIds.add(parkChecked.getId());
+		}
+
+		assertEquals(ids, parksCheckedIds);
+	}
+
+	@Test
+	public void willThrowWhenNoParkCheckedIdMatching() {
+		Long tempId = Long.valueOf(20);
+
+		assertThatThrownBy(() -> parkCheckedController.getParkCheckedListUsingUserId(tempId))
+				.isInstanceOf(RuntimeException.class)
+				.hasMessageContaining("No park checked list matching user id");
+	}
+
+	@Test
+	public void testUpdateParkChecked() {
+		ParkChecked parkChecked = new ParkChecked(Long.valueOf(1), "Denali", "Alaska", false, Long.valueOf(1), Long.valueOf(1));
+		//ParkChecked parkChecked = new ParkChecked();
+		String traveled = "true";
+
+		//Long tempId = Long.valueOf(1);
+		parkCheckedController.updateParkChecked(traveled, parkChecked);
+
+		boolean traveledStatus = parkChecked.getTraveled();
+
+		assertEquals(false, traveledStatus);
+
+
+	}
+
+	// incomplete
+	@Test
+	@Disabled
+	public void willThrowUpdateParkChecked() {
+		ParkChecked parkChecked = new ParkChecked(Long.valueOf(241), "Denali", "Alaska", false, Long.valueOf(1), Long.valueOf(1));
+		//ParkChecked parkChecked = new ParkChecked();
+		String traveled = "true";
+
+		assertThatThrownBy(()-> parkCheckedController.updateParkChecked(traveled, parkChecked))
+				.isInstanceOf(RuntimeException.class)
+				.hasMessageContaining("No park checked to update");
+
+	}
+
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { User } from './common/user';
 import { LoginLogoutService } from './services/login-logout.service';
 import { Router } from '@angular/router';
+import { MessageService } from './services/message.service';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,7 @@ export class AppComponent {
 
   mainUser = new User();
 
-  constructor(private loginService: LoginLogoutService, private route: Router) { }
+  constructor(private loginService: LoginLogoutService, private route: Router, private message: MessageService) { }
 
   ngOnInit(): void {
     // if account is logged in
@@ -36,8 +37,10 @@ export class AppComponent {
   logout(userValue: User) {
     this.loginService.updateCurrentUser(userValue);
 
+
+
     // update the message that shows up in the SuccessComponent
-    //this.passMessage.updateMessage('You are now logged out');
+    this.message.updateMessage('You are now logged out.');
 
     // navigate to SuccessComponent
     this.route.navigate(['/success']);

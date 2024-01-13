@@ -38,7 +38,17 @@ public class ParkCheckedService {
     }
 
     public ParkChecked getParkCheckedUsingId(Long id) {
-        return parkCheckedRepository.findById(id).get();
+
+        ParkChecked parkChecked = new ParkChecked();
+
+
+        try {
+            parkChecked = parkCheckedRepository.findById(id).get();
+        } catch(Exception e) {
+            System.out.println("No park checked by that id");
+        }
+
+        return parkChecked;
     }
 
     public void postParkChecked(ParkChecked parkChecked) {
