@@ -138,25 +138,28 @@ public class ParkCheckedController {
             throw new RuntimeException("No park checked list matching user id");
         }
 
-        // need to check for errors
         return theParkedCheckedList;
     }
 
     @PutMapping("/update/{traveled}")
     @CrossOrigin(origins = "http://localhost:4200")
     public void updateParkChecked(@PathVariable String traveled, @RequestBody ParkChecked parkChecked) {
-        ParkChecked original = parkCheckedService.getParkCheckedUsingId(parkChecked.getId());
+        ParkChecked original = new ParkChecked();
 
-        //System.out.println(traveled);
+
+        original = parkCheckedService.getParkCheckedUsingId(parkChecked.getId());
+
+        if(original == null){
+            throw new RuntimeException("No park checked to update");
+        }
+
         original.setTraveled(Boolean.parseBoolean(traveled));
 
-
-
-        //parkCheckedRepository.save(original);
-
-        //System.out.println(original.getTraveled());
         parkCheckedService.postParkChecked(original);
 
     }
 
 }
+
+
+

@@ -1,11 +1,32 @@
-<p>national-park works!</p>
-<div>{{id}}</div>
+<div class="container">
 
-<p>{{park.stateName}}</p>
-<p>{{park.parkName}}</p>
+    <h2>{{park.stateName}}, {{park.parkName}}</h2>
 
-<p>{{park.image}}</p>
-<p>{{park.directions}}</p>
-<p>{{park.about}}</p>
-<p>{{park.costs}}</p>
-<p>{{park.activities}}</p>
+    <div class="row border p-3">
+
+        <div class="col-3">
+            <img src="{{park.image}}" height="275" width="275"/>
+        </div>
+        <div class="col-9">
+            <p>{{park.about}}</p>
+        </div>
+
+    </div>
+
+    <div class="row border p-3">
+        <h3>Directions</h3>
+        <p>{{park.directions}}</p>
+    </div>
+    
+    <div class="row border p-3">
+        <h3>Costs</h3>
+        <p>{{park.costs}}</p>
+    </div>
+
+    <div class="row border p-3">
+        <h3>Activities</h3>
+        <p>{{park.activities}}</p>
+    </div>
+    
+</div>
+

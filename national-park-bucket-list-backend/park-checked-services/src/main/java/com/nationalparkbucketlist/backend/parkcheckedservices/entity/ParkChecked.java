@@ -30,6 +30,15 @@ public class ParkChecked {
 
     }
 
+    public ParkChecked(long id, String parkName, String stateName, boolean traveled, long parkId, long userId) {
+        this.id = id;
+        this.parkName = parkName;
+        this.stateName = stateName;
+        this.traveled = traveled;
+        this.parkId = parkId;
+        this.userId = userId;
+    }
+
     public ParkChecked(String parkName, String stateName, boolean traveled, long parkId, long userId) {
 
         this.parkName = parkName;

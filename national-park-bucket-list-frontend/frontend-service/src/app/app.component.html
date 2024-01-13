@@ -1,13 +1,84 @@
-<h1>Home</h1>
-{{mainUser.id}}
-<div class="border w-50 float-start m-3" *ngIf="mainUser.id > 0 else elseBlock ">
-    <a (click)="logout(resetUser)"> logout </a>
-    <a routerLink="/park-checked">My Park Bucket List</a>
+
+
+
+
+<div class="container border mainContain" >
+
+
+
+<nav class="container">
+  
+    <div *ngIf="mainUser.id > 0 else elseBlock ">
+      
+        <a class="px-3 border link-danger" (click)="logout(resetUser)"> logout </a>
+      
+      
+        <a class="px-3 border link-danger" routerLink="/park-checked">My Park Bucket List</a>
+      
+      
+        <a class="px-3 border link-danger" routerLink="/parks">National Park List</a>
+       
+    </div>
+     
+    <ng-template #elseBlock>
+      
+          <a class="px-3 border link-danger" routerLink="/login">Login</a>
+        
+          <a class="px-3 border link-danger" routerLink="/parks">National Park List</a>
+      
+    </ng-template>
+ 
+</nav>
+
+
+<div>
+  
+  <div class="row px-3">
+    <h1>National Park Bucket List</h1>
   </div>
+  
+   
+  <div class="row">
+    <router-outlet></router-outlet>
+  </div> 
 
-  <ng-template #elseBlock>
-    <a routerLink="/login">Login</a>
-  </ng-template>
+</div>
 
-<a routerLink="/parks">National Park List</a>
-<router-outlet></router-outlet>
+</div>
+
+
+<!-- 
+
+<div class="container my-5">
+  
+    <h1>Home</h1>
+    
+    <div class="row" *ngIf="mainUser.id > 0 else elseBlock ">
+      <div class="col-1">
+        <a (click)="logout(resetUser)"> logout </a>
+      </div>
+      <div class="col-2">
+        <a routerLink="/park-checked">My Park Bucket List</a>
+      </div>
+      <div class="col-9">
+        <a routerLink="/parks">National Park List</a>
+      </div>  
+    </div>
+     
+    <ng-template #elseBlock>
+      <div class="row"> 
+        <div class="col-1">
+          <a routerLink="/login">Login</a>
+        </div>
+        <div class="col-11">
+          <a routerLink="/parks">National Park List</a>
+        </div>
+      </div> 
+    </ng-template>
+      
+  <div class="row">
+    <router-outlet></router-outlet>
+  </div> 
+  
+</div>
+-->
