@@ -6,8 +6,10 @@ import jakarta.persistence.*;
 @Table(name="park_checked")
 public class ParkChecked {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
     private long id;
 
@@ -51,7 +53,6 @@ public class ParkChecked {
     public long getId() {
         return id;
     }
-
 
     public String getParkName() {
         return parkName;
